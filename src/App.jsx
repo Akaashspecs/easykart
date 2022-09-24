@@ -20,9 +20,7 @@ function App() {
    
     const [cart , setCart] = useState(savedData);
   
-    function handleChangeCount() {
-      setCount(count + 1);
-    } 
+    
   
   
     const handleAddToCart = (productId, count) =>  {
