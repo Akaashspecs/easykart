@@ -1,6 +1,7 @@
 import React from 'react';
 import { AiOutlineShoppingCart } from "react-icons/ai";
 
+
 function Navbar({productCount}) {
   return (
     <div class="h-20 border bg-white flex">
