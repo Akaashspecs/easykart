@@ -8,6 +8,7 @@ import ProductList from './ProductList';
 import ProductView from './ProductView';
 import NotFound from './NotFound';
 import { Routes,Route } from 'react-router-dom';
+import SignUpPage from './SignupPage';
 
 
 
@@ -48,6 +49,8 @@ function App() {
           <Route index element={<ProductView/>}></Route>
           <Route path='/Product/:id/' element={<ProductDesc onAddToCart={handleAddToCart} />}></Route>
           <Route path='*' element={<NotFound/>}></Route>
+          <Route path='/signup' element={<SignUpPage/>}> </Route>
+
         </Routes>
 
         
