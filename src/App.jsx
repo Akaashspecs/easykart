@@ -10,6 +10,7 @@ import NotFound from './NotFound';
 import { Routes,Route } from 'react-router-dom';
 import SignUpPage from './SignupPage';
 import CartPage from './CartPage';
+import Login from './Login';
 
 
 
@@ -54,6 +55,7 @@ function App() {
           <Route path='cart' element={<CartPage cart={cart} updateCart={updateCart} />}></Route>
           <Route path='*' element={<NotFound/>}></Route>
           <Route path='/signup' element={<SignUpPage/>}> </Route>
+          <Route path='/login' element={<Login/>}> </Route>
 
         </Routes>
 
