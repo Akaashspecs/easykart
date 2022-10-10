@@ -4,7 +4,7 @@ import Span from './Span';
 import ProductDesc from './ProductDesc';
 import allData from "./DummyData";
 import NoMatching from "./NoMatching";
-import { getProductList, getProductData } from './api';
+import { getProductList, getProductData , getProduct} from './api';
 import Loading from "./Loading";
 
 
@@ -67,7 +67,7 @@ function ProductView() {
 
   return (
 
-    <div class="mt-20 bg-white w-11/12 md:w-5/6 lg:w-9/12 px-20 md:px-14 lg:px-24  border flex flex-col content-center shrink mb-24 pb-10 self-center ">
+    <div className="mt-20 bg-white w-11/12 md:w-5/6 lg:w-9/12 px-20 md:px-14 lg:px-24  border flex flex-col content-center shrink mb-24 pb-10 self-center ">
 
       <input
         value={query}
@@ -94,9 +94,9 @@ function ProductView() {
 
       <div>
 
-        <a class="border py-2 px-3 hover:bg-orange-500 border-red-500 text-red-700 visited:bg-orange-500 mr-px href='' " >1</a>
-        <a class="border py-2 px-3 hover:bg-orange-500 text-red-700 border-red-500 mr-px" href=''>2</a>
-        <a class="border py-2 px-2.5 hover:bg-orange-500 text-red-700 border-red-500 mr-px">&rarr;</a>
+        <a className="border py-2 px-3 hover:bg-orange-500 border-red-500 text-red-700 visited:bg-orange-500 mr-px href='' " >1</a>
+        <a className="border py-2 px-3 hover:bg-orange-500 text-red-700 border-red-500 mr-px" href=''>2</a>
+        <a className="border py-2 px-2.5 hover:bg-orange-500 text-red-700 border-red-500 mr-px">&rarr;</a>
       </div>
     </div>
   );

@@ -1,4 +1,6 @@
 import React from "react";
+import Error from "./404eerror.png";
+import { memo } from "react";
 
 function NotFound(){
   return <div className="flex  grow bg-[url('')] bg-cover">
@@ -6,7 +8,7 @@ function NotFound(){
     <div className="grow basis-1 flex-col"> 
 
       <div className=" flex justify-end">
-      <img src="https://seeklogo.com/images/B/bored-ape-nft-logo-0336141711-seeklogo.com.png" className ="object-fill w-48 self-end" /> 
+      <img src={Error} className ="object-fill w-48 self-end" /> 
       </div>
     
       <div className="flex ">
@@ -32,6 +34,6 @@ function NotFound(){
   </div>;
 }
 
-export default NotFound;
+export default memo(NotFound);
 //https://www.pngall.com/wp-content/uploads/13/NFT-Character-PNG-File.png
 //bg-gradient-to-r from-indigo-700 to-blue-700

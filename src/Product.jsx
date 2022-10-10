@@ -7,13 +7,13 @@ function Product({ title, price, category, thumbnail , id, review }) {
   
   return (
 
-    <div class="w-56 mb-7 xl:w-64 2xl:w-72">
-      <div class="border">
-        <img class="object-cover  h-56 xl:h-64 2xl:h-72" src= {thumbnail}  />
+    <div className="w-56 mb-7 xl:w-64 2xl:w-72">
+      <div className="border">
+        <img className="object-cover  h-56 xl:h-64 2xl:h-72" src= {thumbnail}  />
         
       </div>
-      <div class="mt-1  text-gray-500 text-xs">{category}</div>
-      <div class=" max-h-min font-semibold"> {title} </div>
+      <div className="mt-1  text-gray-500 text-xs">{category}</div>
+      <div className=" max-h-min font-semibold"> {title} </div>
 
       <div className="flex justify-between">
 

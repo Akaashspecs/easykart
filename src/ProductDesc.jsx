@@ -2,23 +2,23 @@ import React from 'react';
 
 import { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { getProductData } from './api';
+import { getProductData, getProduct } from './api';
 import Loading from './Loading';
 import { FiArrowLeft, FiArrowRight } from 'react-icons/fi';
 import NotFound from './NotFound';
 
 function ProductDesc({ onAddToCart }) {
-	const id = +useParams().id;
+	const productId = +useParams().id;
 	const [product, setProduct] = useState();
 	const [loading, setLoading] = useState(true);
 	const [count, setCount] = useState(1);
 
 	useEffect(
 		function() {
-			const p = getProductData(id);
+			const p = getProductData(productId);
 
-			p.then(function(response) {
-				setProduct(response.data);
+			p.then(function(myResponse) {
+				setProduct(myResponse.data);
 				setLoading(false);
 				setCount (1);
 			});
@@ -27,7 +27,7 @@ function ProductDesc({ onAddToCart }) {
 				setLoading(false);
 			});
 		},
-		[id]
+		[productId]
 	);
 
 	function handleCountChange(event) {
@@ -35,7 +35,7 @@ function ProductDesc({ onAddToCart }) {
 	}
 
   function handleButtonClick(){
-    onAddToCart(id,count);
+    onAddToCart(productId,count);
   }
 
 	if (loading) {
@@ -55,22 +55,22 @@ function ProductDesc({ onAddToCart }) {
 				/>
 			</Link>
 
-			<div class="p-6 bg-white flex flex-col md:flex-row space-x-10 max-w-4xl mx-auto mb-2">
+			<div className="p-6 bg-white flex flex-col md:flex-row space-x-10 max-w-4xl mx-auto mb-2">
 				<div className="h-auto  md:w-1/2">
-					<img class="object-cover" src={product.thumbnail} />
+					<img className="object-cover" src={product.thumbnail} />
 				</div>
-				<div class="shrink md:w-1/2">
-					<h1 class="text-4xl	">{product.title}</h1>
-					<h3 class="text-xl mt-4">${product.price}</h3>
-					<p class="mt-3">{product.description}</p>
+				<div className="shrink md:w-1/2">
+					<h1 className="text-4xl	">{product.title}</h1>
+					<h3 className="text-xl mt-4">${product.price}</h3>
+					<p className="mt-3">{product.description}</p>
 					<input
 						type="number"
 						value={count}
 						onChange={handleCountChange}
-						class="w-7 mt-3 rounded-sm border-2 border-gray-300"
+						className="w-10 mt-3 rounded-sm border-2 border-gray-300"
 						
 					/>
-					<button onClick={handleButtonClick} class="bg-red-400 text-sm text-white rounded-sm py-1 px-5 ">
+					<button onClick={handleButtonClick} id={productId} class="bg-red-400 text-sm text-white rounded-sm py-1 px-5 ">
 						ADD TO CART
 					</button>
 				</div>
@@ -78,11 +78,11 @@ function ProductDesc({ onAddToCart }) {
 
 			<div className="flex flex-row justify-between mb-24">
 				<div>
-					{id > 1 && (
+					{productId > 1 && (
 						<Link
 							className="ml-56 text-3xl flex
         "
-							to={'/Product/' + (id - 1)}
+							to={'/Product/' + (productId - 1)}
 						>
 							<FiArrowLeft />Previous
 						</Link>
@@ -92,7 +92,7 @@ function ProductDesc({ onAddToCart }) {
 					<Link
 						className="mr-56 text-3xl
         flex "
-						to={'/Product/' + (id + 1)}
+						to={'/Product/' + (productId + 1)}
 					>
 						<FiArrowRight />Next
 					</Link>

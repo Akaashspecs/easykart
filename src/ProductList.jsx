@@ -5,7 +5,7 @@ import ProductView from "./ProductView";
 
 function ProductList({ products }) {
   return (
-     <div class="flex flex-row flex-wrap justify-between self-center  shrink-0 mt-4  bg-white">
+     <div className="flex flex-row flex-wrap justify-between self-center  shrink-0 mt-4  bg-white">
       {products.map(function(item) {
         return (
           <Product
