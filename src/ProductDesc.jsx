@@ -2,7 +2,7 @@ import React from 'react';
 
 import { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { getProductData, getProduct } from './api';
+import { getProductData, } from './api';
 import Loading from './Loading';
 import { FiArrowLeft, FiArrowRight } from 'react-icons/fi';
 import NotFound from './NotFound';

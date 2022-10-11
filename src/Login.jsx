@@ -2,7 +2,8 @@ import { Formik, Form, yupToFormErrors } from "formik";
 import React from "react";
 import Button from "./Button";
 import * as Yup from "yup";
-import Input from "./Input";
+import {FormikInput} from "./Input";
+
 
 function Login(){
     function callLoginApi(values) {
@@ -31,7 +32,7 @@ function Login(){
                     <h1 className="text-2xl font-bold self-center mb-4">
                         Login to amazon
                     </h1>
-                    <Input
+                    <FormikInput
                         label="Email address"
                         id="email-address"
                         name="email"
@@ -41,7 +42,7 @@ function Login(){
                         placeholder="Email or Username"
                         className="rounded-b-none"
                     />
-                    <Input
+                    <FormikInput
                         label="Password"
                         id="xyz"
                         name="myPassword"
@@ -51,7 +52,7 @@ function Login(){
                         placeholder="Password"
                         className="rounded-t-none"
                     />
-                    <Button type="sumbit" className="self-end mt-3">
+                    <Button type="sumbit" className="self-end mt-5">
                         Loging
                     </Button>
                     

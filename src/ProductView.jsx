@@ -4,7 +4,7 @@ import Span from './Span';
 import ProductDesc from './ProductDesc';
 import allData from "./DummyData";
 import NoMatching from "./NoMatching";
-import { getProductList, getProductData , getProduct} from './api';
+import { getProductList, getProductData , } from './api';
 import Loading from "./Loading";
 
 
@@ -63,6 +63,7 @@ function ProductView() {
   if (loading) {
     return <Loading />;
   }
+
 
 
   return (
