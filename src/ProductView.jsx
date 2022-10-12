@@ -68,11 +68,11 @@ function ProductView() {
 
   return (
 
-    <div className="mt-20 bg-white w-11/12 md:w-5/6 lg:w-9/12 px-20 md:px-14 lg:px-24  border flex flex-col content-center shrink mb-24 pb-10 self-center ">
+    <div className="mt-20 rounded-lg  bg-white w-11/12 md:w-5/6 lg:w-9/12 px-20 md:px-14 lg:px-24  border flex flex-col content-center shrink mb-24 pb-10 self-center ">
 
       <input
         value={query}
-        placeholder="search"
+        placeholder=" search"
         className="mt-7 border border-gray-700 rounded-md md-2 w-72 self-center"
         onChange={handleQueryChange} ></input>
 

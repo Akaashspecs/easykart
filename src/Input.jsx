@@ -2,15 +2,9 @@ import React from "react";
 
 import FormikHOC from "./FormikHOC";
 
-function Input({ name, label, id, className, ...rest }) {
+function Input({ name, label, id, className, touched, error,  ...rest }) {
 
-    const field = useField(name);
-
-        const [data, meta, helpers] = field;
-
-        const { value, onBlur, onChange } = data;
-        const { error, touched } = meta;
-
+   
     
     let borderClass = " border-gray-300 focus:border-indigo-500  ";
 
@@ -26,9 +20,7 @@ function Input({ name, label, id, className, ...rest }) {
             </label>
             <input
                 id={id}
-                value={value}
-                onChange={onChange}
-                onBlur={onBlur}
+               
                 name={name}
                 className= {"relative block w-full appearance-none rounded-md border px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-1 focus:outline-none focus:ring-indigo-500 sm:text-sm " +
                 className +

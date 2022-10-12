@@ -44,7 +44,7 @@ function App() {
 
   return (
     <>
-      <div class="bg-slate-50 bg-cover flex flex-col h-screen">
+      <div class="bg-cover h-screen bg-[url('https://i.redd.it/t7b5j2cqpce21.png')] bg-no-repeat bg-cover flex flex-col h-screen overflow-scroll">
         <Navbar productCount={totalCount} />
         
         

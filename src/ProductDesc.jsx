@@ -55,10 +55,10 @@ function ProductDesc({ onAddToCart }) {
 				/>
 			</Link>
 
-			<div className="p-6 bg-white flex flex-col md:flex-row space-x-10 max-w-4xl mx-auto mb-2">
-				<div className="h-auto  md:w-1/2">
-					<img className="object-cover" src={product.thumbnail} />
-				</div>
+			<div className="p-6 bg-white flex flex-col md:flex-row space-x-10 max-w-4xl mx-auto mb-2 rounded-lg">
+				<div className="h-auto  hover:w-3/5 md:w-1/2">
+					<img className="object-cover rounded-lg" src={product.thumbnail} />
+				</div> 
 				<div className="shrink md:w-1/2">
 					<h1 className="text-4xl	">{product.title}</h1>
 					<h3 className="text-xl mt-4">${product.price}</h3>

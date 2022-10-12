@@ -21,7 +21,7 @@ function Login(){
     };
 
     return (
-        <div className="flex items-center justify-center w-full h-screen bg-gray-100">
+        <div className="flex items-center justify-center w-full bg-cover h-screen bg-[url('https://i.redd.it/t7b5j2cqpce21.png')] bg-no-repeat">
             <Formik
             initialValues={initialValues}
             onSubmit={callLoginApi}

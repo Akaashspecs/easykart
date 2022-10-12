@@ -3,39 +3,37 @@ import React, { useEffect, useState } from 'react';
 import { ImCross } from "react-icons/im";
 import { getProduct } from "./api";  
 import Loading from './Loading';
+import CartList from './CartList';
+
 
 function CartPage ({ cart, updateCart }) {
     const [loading, setLoading] = useState(true);
     const [products, setProducts] = useState([]);
-    const productIds = Object.keys(cart); 
-    console.log("id", cart, productIds);
-    const [localCart, setLocalCart] = useState(cart);
-
-
-    useEffect(
-        function () {
-            setLocalCart(cart);
-        },
-        [cart]
-    );
     
    
 
     useEffect(
-        function() {
+        function () {
+            setLoading(true);
+            const productIds = Object.keys(cart); 
             const myProductPromises = productIds.map(function (id) {
                 return getProduct(id);
-
             });
 
-            Promise.all(myProductPromises).then(function (products) {
+            Promise.all(myProductPromises).then(function (products){
                 setProducts(products);
                 setLoading(false);
             });
+         
         },
         [cart]
     );
+
+
     
+   
+
+  
 
     function handleRemove(event) {
         const productId = event.currentTarget.getAttribute("productid");
@@ -65,29 +63,11 @@ function CartPage ({ cart, updateCart }) {
     
 
     return (
-        <div>
-        {products.map(function (p) {
-            return (
-                <div key={p.id}>
-                    {p.title}{" "}
-                    
-                    <input
-                        productid={p.id}
-                        type="number"
-                        className='w-12 p-1 mx-2 border border-gray-300 rounded-md'
-                        value={localCart[p.id]}
-                        onChange={handleChange}
-                    />
-                    <button productid={p.id} onClick={handleRemove}>
-                        <ImCross />
-                    </button>
-                </div>
-                
-            );
-            
-        })}
-        <button onClick={updateMyCart}>Update cart</button>
-     </div>
+        <div className='max-w-6xl px-20 py-16 mx-auto bg-white'>
+            <CartList products={producrs} cart={cart} updateCart={updateCart}/> 
+
+        
+        </div>
     );
 }
 

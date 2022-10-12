@@ -7,9 +7,9 @@ function Product({ title, price, category, thumbnail , id, review }) {
   
   return (
 
-    <div className="w-56 mb-7 xl:w-64 2xl:w-72">
-      <div className="border">
-        <img className="object-cover  h-56 xl:h-64 2xl:h-72" src= {thumbnail}  />
+    <div className="w-56 mb-7 xl:w-64 2xl:w-72 ">
+      <div className='drop-shadow-lg  ' >
+        <img className="object-cover rounded-lg h-56 xl:h-64  2xl:h-72 border-solid border-t-4 border-b-4 border-amber-700 " src= {thumbnail}  />
         
       </div>
       <div className="mt-1  text-gray-500 text-xs">{category}</div>
