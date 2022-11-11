@@ -2,10 +2,7 @@ import React, { useEffect } from 'react';
 import { memo } from "react";
 
 function NoMatching(){
-  useEffect (function(){
-    
-    
-  },[]);
+ 
 
   
   return(

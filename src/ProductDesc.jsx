@@ -6,8 +6,9 @@ import { getProductData, } from './api';
 import Loading from './Loading';
 import { FiArrowLeft, FiArrowRight } from 'react-icons/fi';
 import NotFound from './NotFound';
+import { withCart } from './withProvider';
 
-function ProductDesc({ onAddToCart }) {
+function ProductDesc({ addToCart }) {
 	const productId = +useParams().id;
 	const [product, setProduct] = useState();
 	const [loading, setLoading] = useState(true);
@@ -18,7 +19,7 @@ function ProductDesc({ onAddToCart }) {
 			const p = getProductData(productId);
 
 			p.then(function(myResponse) {
-				setProduct(myResponse.data);
+				setProduct(myResponse);
 				setLoading(false);
 				setCount (1);
 			});
@@ -35,7 +36,7 @@ function ProductDesc({ onAddToCart }) {
 	}
 
   function handleButtonClick(){
-    onAddToCart(productId,count);
+    addToCart(productId,count);
   }
 
 	if (loading) {
@@ -102,4 +103,4 @@ function ProductDesc({ onAddToCart }) {
 	);
 }
 
-export default ProductDesc;
+export default withCart(ProductDesc);

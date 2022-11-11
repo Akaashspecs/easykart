@@ -6,7 +6,7 @@ function FormikHOC(IncommingComponent) {
 
         const field = useField(name);
 
-        const [data, meta] = field;
+        const [data, meta] = field;  
 
         const { value, onBlur, onChange } = data;
         const { error, touched } = meta;

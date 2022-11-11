@@ -4,60 +4,80 @@ import Span from './Span';
 import ProductDesc from './ProductDesc';
 import allData from "./DummyData";
 import NoMatching from "./NoMatching";
-import { getProductList, getProductData , } from './api';
+import { getProductList } from './api';
 import Loading from "./Loading";
+import { Navigate } from "react-router";
+import Button from './Button';
+import withUser from './withUser';
+import {range} from "lodash";
+import { Link, useSearchParams} from "react-router-dom";
 
 
-function ProductView() {
 
-  const [productList, setProductList] = useState([]);
+function ProductView({ setUser }) {
+  
+  let title;
+
+  const [productData, setProductData] = useState();
   const [loading, setLoading] = useState(true);
+  
+  
+  
+
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const params = Object.fromEntries([...searchParams]);
+
+  let { query, sort, page } = params;
+
+  query = query || "";
+  sort = sort || "default";
+
+  page = +page || 1;
+   
 
   useEffect(function() {
-    const xyz = getProductList();
 
-    xyz.then(function(response) {
-      setProductList(response.data.products);
+    let sortType;
+    let sortBy;
+    
+     
+    if(sort == 'title'){
+      sortBy =  'title';
+    } else if (sort == "pricelow") {
+      sortBy = "price";
+    } else if ( sort == "pricehigh"){
+      sortBy = "price";
+      sortType = "desc";
+    } else if ( sort == "name"){
+      sortBy = "title";
+    }
+
+
+        getProductList(sortBy, query, page, sortType, title).then(function (xyz) {
+      setProductData(xyz);
       setLoading(false);
     });
-  }, []);
+  }, [sort,query, page]);
 
-  const [query, setQuery] = useState("");
-  const [sort, setSort] = useState("default");
+   
 
-
-
-  let data = productList.filter(function(item) {
-    const lowerCaseTitle = item.title.toLowerCase();
-    const lowerCaseQuery = query.toLowerCase();
-
-
-    return lowerCaseTitle.indexOf(lowerCaseQuery) != -1;
-  });
-
-  if (sort == "pricelow") {
-    data.sort(function(x, y) {
-      return x.price - y.price;
-    });
+  function handleLogout(){
+    localStorage.removeItem("token");
+    setUser(undefined);
   }
-  else if (sort == "pricehigh") {
-    data.sort(function(x, y) {
-      return y.price - x.price;
-    });
-  }
-  else if (sort == "name") {
-    data.sort(function(x, y) {
-      return x.title < y.title ? -1 : 1
-    });
-  }
+
+  
 
 
   function handleQueryChange(event) {
-    setQuery(event.target.value);
+    setSearchParams({ ...params, query: event.target.value, page: 1 },
+      { replace: false });
   }
 
   function handleSortChange(event) {
-    setSort(event.target.value);
+    setSearchParams({ ...params, sort: event.target.value, page: 1 },
+      { replace: false });
   }
 
   if (loading) {
@@ -66,10 +86,13 @@ function ProductView() {
 
 
 
+
+
   return (
 
     <div className="mt-20 rounded-lg  bg-white w-11/12 md:w-5/6 lg:w-9/12 px-20 md:px-14 lg:px-24  border flex flex-col content-center shrink mb-24 pb-10 self-center ">
 
+      <Button onClick={handleLogout}>Logout</Button>
       <input
         value={query}
         placeholder=" search"
@@ -86,12 +109,24 @@ function ProductView() {
 
       </select>
 
-      {data.length > 0 && <ProductList products={data} />}
-      {data.length == 0 && <NoMatching />}
+      {productData.data.length > 0 && <ProductList products={productData.data} />}
+      {productData.data.length == 0 && <NoMatching />}
+
+      
 
       <Span />
 
-
+      <div className='flex'>
+      
+      {range(1, productData.meta.last_page + 1).map((pageNo) => (
+        <Link 
+        key={pageNo}
+        to={"?" + new URLSearchParams({ ...params, page: pageNo})}
+        className={ "p-2 m-1 " + (pageNo === page ? "bg-red-500" : "bg-indigo-700")}
+        >{pageNo}</Link>
+      ))}
+      
+      </div>
 
       <div>
 
@@ -105,4 +140,4 @@ function ProductView() {
 
 
 
-export default ProductView;
+export default withUser(ProductView);
