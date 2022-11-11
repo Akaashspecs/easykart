@@ -1,62 +1,82 @@
-import React, { useState } from 'react';
-import Product from './Product';
+import React from 'react';
+
 import ProductDesc from './ProductDesc';
-import Span from './Span';
+
 import Navbar from './Navbar';
 import Footer from './Footer';
-import ProductList from './ProductList';
+
 import ProductView from './ProductView';
 import NotFound from './NotFound';
 import { Routes,Route } from 'react-router-dom';
 import SignUpPage from './SignupPage';
+import CartPage from './CartPage';
+import Login from './Login';
+
+
+import AuthRoute from './AuthRoute';
+import UserRoute from './UserRoute';
+
+import Alert from './Alert';
+
+import UserProvider from './Providers/UserProvider';
+import AlertProvider from './Providers/AlertProvider';
+import CartProvider from './Providers/CartProvider';
+
 
 
 
 function App() {
 
-    const savedDataString = localStorage.getItem("my-cart") || "{}";
-    const savedData = JSON.parse(savedDataString);
-  
-    const [count , setCount] = useState(0);
-   
-    const [cart , setCart] = useState(savedData);
-  
-    
-  
-  
-    const handleAddToCart = (productId, count) =>  {
-     let oldCount = cart[productId] || 0;
-
-      const newCart = {...cart, [productId]: oldCount + count };
-      setCart(newCart);
-      const cartString = JSON.stringify(newCart);
-      localStorage.setItem("mycart", cartString);
-    };
-
-    const totalCount = Object.keys(cart).reduce(function(previous, current) {
-     return previous + cart[current];
-    }, 0);
 
 
   return (
     <>
-      <div class="bg-slate-50 bg-cover flex flex-col h-screen">
-        <Navbar productCount={totalCount} />
+      <div class="bg-cover h-screen bg-[url('https://i.redd.it/t7b5j2cqpce21.png')] bg-no-repeat bg-cover flex flex-col h-screen overflow-scroll">
         
-        
-        <Routes>
+        <UserProvider >
           
-          <Route index element={<ProductView/>}></Route>
-          <Route path='/Product/:id/' element={<ProductDesc onAddToCart={handleAddToCart} />}></Route>
-          <Route path='*' element={<NotFound/>}></Route>
-          <Route path='/signup' element={<SignUpPage/>}> </Route>
+            <AlertProvider >
+            <CartProvider>
+              
+              
+              <Alert /> 
+          
+              <Navbar  />
+        
+        
+              <Routes>
+          
+              <Route 
+              index 
+              element={
+              <UserRoute >
+              <ProductView  />
+              </UserRoute>
+              }
+              />
 
-        </Routes>
+              <Route path='/Product/:id/' element={<ProductDesc  />}></Route>
+              <Route path='/cart' element={<CartPage />}></Route>
+              <Route path='*' element={<NotFound/>}></Route>
+              <Route path='/signup' element={<SignUpPage/>}> </Route>
+              <Route 
+                path='/login' 
+                element={
+                <AuthRoute >
+                  <Login />
+                </AuthRoute>}
+              /> 
+          
+
+              </Routes>
 
         
 
-        <Footer />
-
+              <Footer />
+              </CartProvider>
+            </AlertProvider>
+          
+        </UserProvider>
       </div>
       
     </>
