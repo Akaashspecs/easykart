@@ -1,106 +1,113 @@
-import React from 'react';
+import React from "react";
 
-import { useState, useEffect } from 'react';
-import { Link, useParams } from 'react-router-dom';
-import { getProductData, } from './api';
-import Loading from './Loading';
-import { FiArrowLeft, FiArrowRight } from 'react-icons/fi';
-import NotFound from './NotFound';
-import { withCart } from './withProvider';
+import { useState, useEffect } from "react";
+import { Link, useParams } from "react-router-dom";
+import { getProductData } from "./api";
+import Loading from "./Loading";
+import { FiArrowLeft, FiArrowRight } from "react-icons/fi";
+import NotFound from "./NotFound";
+import { withCart } from "./withProvider";
 
 function ProductDesc({ addToCart }) {
-	const productId = +useParams().id;
-	const [product, setProduct] = useState();
-	const [loading, setLoading] = useState(true);
-	const [count, setCount] = useState(1);
+  const productId = +useParams().id;
+  const [product, setProduct] = useState();
+  const [loading, setLoading] = useState(true);
+  const [count, setCount] = useState(1);
 
-	useEffect(
-		function() {
-			const p = getProductData(productId);
+  useEffect(
+    function () {
+      const p = getProductData(productId);
 
-			p.then(function(myResponse) {
-				setProduct(myResponse);
-				setLoading(false);
-				setCount (1);
-			});
+      p.then(function (myResponse) {
+        setProduct(myResponse);
+        setLoading(false);
+        setCount(1);
+      });
 
-			p.catch(function(error) {
-				setLoading(false);
-			});
-		},
-		[productId]
-	);
+      p.catch(function (error) {
+        setLoading(false);
+      });
+    },
+    [productId]
+  );
 
-	function handleCountChange(event) {
-		setCount(+event.target.value);
-	}
+  console.log(productId);
 
-  function handleButtonClick(){
-    addToCart(productId,count);
+  function handleCountChange(event) {
+    setCount(+event.target.value);
   }
 
-	if (loading) {
-		return <Loading />;
-	}
+  function handleButtonClick() {
+    addToCart(productId, count);
+  }
 
-	if (!product) {
-		return <NotFound />;
-	}
+  if (loading) {
+    return <Loading />;
+  }
 
-	return (
-		<div className="  flex flex-col grow mt-10">
-			<Link to="/">
-				<FiArrowLeft
-					className="ml-56 text-3xl
+  if (!product) {
+    return <NotFound />;
+  }
+
+  return (
+    <div className="  flex flex-col grow mt-10">
+      <Link to="/">
+        <FiArrowLeft
+          className="ml-56 text-3xl
         mb-3"
-				/>
-			</Link>
+        />
+      </Link>
 
-			<div className="p-6 bg-white flex flex-col md:flex-row space-x-10 max-w-4xl mx-auto mb-2 rounded-lg">
-				<div className="h-auto  hover:w-3/5 md:w-1/2">
-					<img className="object-cover rounded-lg" src={product.thumbnail} />
-				</div> 
-				<div className="shrink md:w-1/2">
-					<h1 className="text-4xl	">{product.title}</h1>
-					<h3 className="text-xl mt-4">${product.price}</h3>
-					<p className="mt-3">{product.description}</p>
-					<input
-						type="number"
-						value={count}
-						onChange={handleCountChange}
-						className="w-10 mt-3 rounded-sm border-2 border-gray-300"
-						
-					/>
-					<button onClick={handleButtonClick} id={productId} class="bg-red-400 text-sm text-white rounded-sm py-1 px-5 ">
-						ADD TO CART
-					</button>
-				</div>
-			</div>
+      <div className="p-6 bg-white flex flex-col md:flex-row space-x-10 max-w-4xl mx-auto mb-2 rounded-lg">
+        <div className="h-auto  hover:w-3/5 md:w-1/2">
+          <img className="object-cover rounded-lg" src={product.thumbnail} />
+        </div>
+        <div className="shrink md:w-1/2">
+          <h1 className="text-4xl	">{product.title}</h1>
+          <h3 className="text-xl mt-4">${product.price}</h3>
+          <p className="mt-3">{product.description}</p>
+          <input
+            type="number"
+            value={count}
+            onChange={handleCountChange}
+            className="w-10 mt-3 rounded-sm border-2 border-gray-300"
+          />
+          <button
+            onClick={handleButtonClick}
+            id={productId}
+            class="bg-red-400 text-sm text-white rounded-sm py-1 px-5 "
+          >
+            ADD TO CART
+          </button>
+        </div>
+      </div>
 
-			<div className="flex flex-row justify-between mb-24">
-				<div>
-					{productId > 1 && (
-						<Link
-							className="ml-56 text-3xl flex
+      <div className="flex flex-row justify-between mb-24">
+        <div>
+          {productId > 1 && (
+            <Link
+              className="ml-56 text-3xl flex
         "
-							to={'/Product/' + (productId - 1)}
-						>
-							<FiArrowLeft />Previous
-						</Link>
-					)}
-				</div>
-				<div>
-					<Link
-						className="mr-56 text-3xl
+              to={"/Product/" + (productId - 1)}
+            >
+              <FiArrowLeft />
+              Previous
+            </Link>
+          )}
+        </div>
+        <div>
+          <Link
+            className="mr-56 text-3xl
         flex "
-						to={'/Product/' + (productId + 1)}
-					>
-						<FiArrowRight />Next
-					</Link>
-				</div>
-			</div>
-		</div>
-	);
+            to={"/Product/" + (productId + 1)}
+          >
+            <FiArrowRight />
+            Next
+          </Link>
+        </div>
+      </div>
+    </div>
+  );
 }
 
 export default withCart(ProductDesc);
